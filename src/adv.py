@@ -49,3 +49,15 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+# Day 1 MVP: 
+# Allow player to move room to room in the 4 cardinal directions
+# Create player and room classes in their respective files
+
+# Day 2 MVP: 
+# Add ability for rooms to hold multiple items
+# Add ability for player to hold multiple items
+# Add items to the game that the player can carry around and use
+# Add get [ITEM_NAME] and drop [ITEM_NAME] commands to the parser, which will allow the player to get and drop items.  Upon dropping, we should update location information for the item in case the player wants to return and pick it up again.
+
+# Add functionality for other 2-word commands, such as 'take coins' or 'drop sword'.
