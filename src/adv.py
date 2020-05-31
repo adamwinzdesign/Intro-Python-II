@@ -11,7 +11,7 @@ room = {
                      "North of you, the cave mount beckons."),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+passages run north, east, and west."""),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
@@ -45,16 +45,19 @@ room['kitchen'].e_to = room['foyer']
 room['foyer'].w_to = room['kitchen']
 
 # create player
-player = Player('Guile', room['outside'], 'badass knife')
+player = Player('Guile', room['outside'])
 
-# add items to rooms
-# room['outside'].items = ['rocks', 'bushes']
-# room['foyer'].items = ['brass knuckles', 'torch']
+# create items
+item = Item('badass knife', 'A super-sharp knife with a pearl handle and a serrated blade', 'outside')
 
 # clear terminal as game starts
 clear_terminal()
 
 done = False
+
+# helper to look around a room and print all items in the room that can be interacted with in some way.
+def look():
+    print(room.items)
 
 # helper function to skip input that we don't understand or cannot act upon
 def skip_input():
@@ -67,42 +70,50 @@ def help_text():
         -[s]: move south
         -[e]: move east
         -[w]: move west
-        -[q]: quit
-        -[help]: help text
+        -[i]: get inventory
+        -[q, or quit, or exit]: quit
+        -[help or ?]: help text
         """)
 
 # welcome message
 def get_welcome_message():
-    welcome_message = (f'  Guile\'s Adventure of Punching and Patriotism  \nWelcome to the game, {player.name}! You currently have a {player.inventory} to help you along the way!  Your location is: {player.room}.  {player.room.description}')
+    welcome_message = (f'  Guile\'s Adventure of Punching and Patriotism  \nWelcome to the game, {player.name}! You currently have a {player.inventory} to help you along the way!  Your location is: {player.room}.  {player.room.description}.')
     print(welcome_message)
 
 get_welcome_message()
 
 # Main
 #
+# Item('badass knife')
 
 while not done:
-    # for line in textwrap.wrap(player.room.print_description()):
-    #     print(line)
-    #     print('\n')
 
     command = input('What would you like to do?')
 
-    if len(command) > 2 or len(command) < 1:
-        skip_input()
-        continue
+    # if len(command) > 2 or len(command) < 1:
+    #     skip_input()
+    #     continue
 
     if command in ['n', 's', 'e', 'w']:
         player.room = player.move_to(command, player.room)
-        print(f'You move to: {player.room}')
+        print(f'You move to: {player.room}.  {player.room.description}')
+        continue
+
+    if command in ['look']:
+        print(f'You look around, and you can see: {look()}')
         continue
 
     if command in ['q', 'quit', 'exit']:
+        print(f'Thank you for playing, {player.name}!')
         done = True
+        continue
 
     if command in ['?', 'help']:
         help_text()
         continue
+
+    if command in ['i']:
+        print(f'You currently have: {player.inventory}.')
     
     else:
         skip_input()

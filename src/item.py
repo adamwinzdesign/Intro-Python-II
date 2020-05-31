@@ -10,7 +10,7 @@
 # Add support for the drop command, followed by an item name.
 
 class Item:
-  def __init__(self, name, description, current_location=None):
+  def __init__(self, name, description, location='outside'):
     self.name = name
-    self.description = description,
-    self.current_location = current_location
+    self.description = description
+    self.location = location
